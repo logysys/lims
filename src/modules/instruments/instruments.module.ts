@@ -1,0 +1,17 @@
+import { Module, forwardRef } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Instrument } from './entities/instrument.entity';
+import { InstrumentsService } from './instruments.service';
+import { InstrumentsController } from './instruments.controller';
+import { AuditModule } from '@modules/audit/audit.module';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([Instrument]),
+    forwardRef(() => AuditModule),
+  ],
+  providers: [InstrumentsService],
+  controllers: [InstrumentsController],
+  exports: [InstrumentsService],
+})
+export class InstrumentsModule {}
